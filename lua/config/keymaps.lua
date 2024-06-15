@@ -1,5 +1,79 @@
--- Keymaps are automatically loaded on the VeryLazy event
--- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
--- Add any additional keymaps here
---
-vim.keymap.set({ "n", "v" }, "<leader>o", "<cmd>Neotree focus<cr>", { desc = "Focus Neotree" })
+-- Keymaps for vim stuff itself
+vim.keymap.set("n", "<leader>O", "<cmd>e .<CR>", { desc = "Open vim explorer in the wd" })
+vim.keymap.set("n", "<leader>o", "<cmd>Ex %:h<CR>", { desc = "Open vim explorer in the files dir" })
+
+-- Buffers
+vim.keymap.set("n", "<leader>bc", "<cmd>bw<CR>", { desc = "Write and close current buffer" })
+
+-- Keymaps for finding things
+local builtin = require("telescope.builtin")
+vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Find files by name" })
+vim.keymap.set("n", "<leader>ft", builtin.live_grep, { desc = "Grep over all files in wd 'find text'" })
+vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Find buffers" })
+vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Find help tags" })
+
+-- LSP Stuff
+vim.keymap.set("n", "<leader>lh", vim.lsp.buf.hover, { desc = "LSP buf Hover" })
+vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, { desc = "Go to Definition" })
+vim.keymap.set("n", "<leader>ld", vim.lsp.buf.definition, { desc = "Go to Definition" })
+vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code Actions" })
+vim.keymap.set("n", "<leader>la", vim.lsp.buf.code_action, { desc = "Code Actions" })
+vim.keymap.set("n", "<leader>lf", vim.lsp.buf.format, { desc = "Format" })
+
+-- DAP Stuff
+local dap = require("dap")
+vim.keymap.set("n", "<leader>db", dap.toggle_breakpoint, { desc = "DAP Toggle Breakpoint" })
+vim.keymap.set("n", "<leader>dc", dap.continue, { desc = "DAP Continue" })
+
+-- Git Stuff
+vim.keymap.set("n", "<leader>sl", "<cmd>LazyGit<cr>", { desc = "Open LazyGit" })
+require("gitsigns").setup({
+	on_attach = function(bufnr)
+		local gitsigns = require("gitsigns")
+
+		local function map(mode, l, r, opts)
+			opts = opts or {}
+			opts.buffer = bufnr
+			vim.keymap.set(mode, l, r, opts)
+		end
+
+		-- Navigation
+		map("n", "]c", function()
+			if vim.wo.diff then
+				vim.cmd.normal({ "]c", bang = true })
+			else
+				gitsigns.nav_hunk("next")
+			end
+		end)
+
+		map("n", "[c", function()
+			if vim.wo.diff then
+				vim.cmd.normal({ "[c", bang = true })
+			else
+				gitsigns.nav_hunk("prev")
+			end
+		end)
+
+		-- Actions
+		map("n", "<leader>ss", gitsigns.stage_hunk, { desc = "Stage Hunk Under Cursor" })
+		map("n", "<leader>sr", gitsigns.reset_hunk, { desc = "Reset Hunk Under Cursor" })
+		map("v", "<leader>ss", function()
+			gitsigns.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
+		end, { desc = "Stage Selected Hunk" })
+		map("v", "<leader>sr", function()
+			gitsigns.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
+		end, { desc = "Reset Selected Hunk" })
+		map("n", "<leader>sS", gitsigns.stage_buffer, { desc = "Stage Buffer" })
+		map("n", "<leader>su", gitsigns.undo_stage_hunk, { desc = "Undo Stage Hunk" })
+		map("n", "<leader>sR", gitsigns.reset_buffer, { desc = "Reset Buffer Hunk" })
+		map("n", "<leader>sp", gitsigns.preview_hunk, { desc = "Preview Hunk" })
+		map("n", "<leader>sB", function()
+			gitsigns.blame_line({ full = true })
+		end, { desc = "Show Full Git Blame" })
+		map("n", "<leader>sb", gitsigns.toggle_current_line_blame, { desc = "Toggle inline Git Blame" })
+		map("n", "<leader>sd", gitsigns.diffthis, { desc = "Diff This" })
+		map("n", "<leader>sD", function()
+			gitsigns.diffthis("~")
+		end)
+	end,
+})
