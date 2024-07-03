@@ -12,6 +12,7 @@ return {
         ensure_installed = {
           "lua_ls",
           "tsserver",
+          "gopls",
           "docker_compose_language_service",
           "dockerls",
           "tailwindcss",
@@ -23,8 +24,17 @@ return {
     "neovim/nvim-lspconfig",
     config = function()
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
       local lspconfig = require("lspconfig")
+
+      lspconfig.gopls.setup({
+        capabilities = capabilities,
+        cmd = { "gopls" },
+        filetypes = { "go", "gomod", "gowork", "gotmpl" },
+        settings = {
+          completeUnimported = true,
+        },
+      })
+
       lspconfig.tailwindcss.setup({
         capabilities = capabilities,
       })
@@ -43,7 +53,7 @@ return {
   {
     "nvimtools/none-ls.nvim",
     dependencies = {
-      "nvimtools/none-ls-extras.nvim"
+      "nvimtools/none-ls-extras.nvim",
     },
     config = function()
       local null_ls = require("null-ls")
@@ -53,8 +63,13 @@ return {
 
       null_ls.setup({
         sources = {
+
+          -- go
+          -- require("none-ls.formatting.gofumpt"),
+          -- require("none-ls.formatting.goimports-reviser"),
+
+          -- js/ts
           formatting.prettier.with({
-            -- extra_args = { "--single-quote", "--print-width 120" },
             filetypes = {
               "css",
               "scss",
@@ -66,8 +81,10 @@ return {
               "graphql",
             },
           }),
+
           require("none-ls.diagnostics.eslint_d"),
           require("none-ls.formatting.eslint_d"),
+          -- stylua
           formatting.stylua,
         },
       })
