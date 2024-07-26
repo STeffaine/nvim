@@ -11,6 +11,7 @@ vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Find files by na
 vim.keymap.set("n", "<leader>ft", builtin.live_grep, { desc = "Grep over all files in wd 'find text'" })
 vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Find buffers" })
 vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Find help tags" })
+vim.keymap.set("n", "<C-space>", builtin.live_grep, { desc = "Grep over all files in the wd"})
 
 -- LSP Stuff
 vim.keymap.set("n", "<leader>lh", vim.lsp.buf.hover, { desc = "LSP buf Hover" })
