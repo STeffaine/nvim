@@ -5,11 +5,25 @@ return {
     config = function()
       local config = require("nvim-treesitter.configs")
       config.setup({
+        additional_vim_regex_highlighting = false,
         highlight = { enable = true },
         indent = { enable = true },
         ensure_installed = {
           "lua",
           "javascript",
+          "vim",
+          "markdown",
+          "go",
+          "python",
+          "typescript",
+          "dockerfile",
+          "yaml",
+          "html",
+          "bash",
+          "json",
+          "nginx",
+          "regex",
+          "sql",
         },
       })
     end,
