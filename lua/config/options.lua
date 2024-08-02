@@ -49,3 +49,5 @@ vim.opt.listchars = {
     extends = '>',   -- Character to show for wrapped lines
     precedes = '<',  -- Character to show for indentations (e.g., in insert mode)
 }
+
+vim.opt.termguicolors = true
