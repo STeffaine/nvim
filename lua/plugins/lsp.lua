@@ -75,7 +75,6 @@ return {
               "scss",
               "less",
               "html",
-              "json",
               "yaml",
               "markdown",
               "graphql",

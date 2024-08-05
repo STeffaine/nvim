@@ -23,7 +23,6 @@ return {
           "yaml",
           "html",
           "bash",
-          "json",
           "nginx",
           "regex",
           "sql",
