@@ -78,6 +78,7 @@ return {
               "yaml",
               "markdown",
               "graphql",
+              "lua",
             },
           }),
 
