@@ -3,7 +3,9 @@ vim.keymap.set("n", "<leader>O", "<cmd>e .<CR>", { desc = "Open vim explorer in 
 vim.keymap.set("n", "<leader>o", "<cmd>Ex %:h<CR>", { desc = "Open vim explorer in the files dir" })
 
 -- Buffers
-vim.keymap.set("n", "<leader>bc", "<cmd>bw<CR>", { desc = "Write and close current buffer" })
+vim.keymap.set("n", "<leader>c", "<cmd>bw<CR>", { desc = "Write and close current buffer" })
+vim.keymap.set("n", "<leader>[", "<cmd>bprev<CR>", { desc = "Go to previous buffer"})
+vim.keymap.set("n", "<leader>]", "<cmd>bnext<CR>", { desc = "Go to next buffer"})
 
 -- Keymaps for finding things
 local builtin = require("telescope.builtin")
@@ -19,7 +21,6 @@ vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, { desc = "Go to Defini
 vim.keymap.set("n", "<leader>ld", vim.lsp.buf.definition, { desc = "Go to Definition" })
 vim.keymap.set("n", "<leader>lt", vim.lsp.buf.type_definition, { desc = "Go to Type Definition"})
 vim.keymap.set("n", "<leader>gt", vim.lsp.buf.type_definition, { desc = "Go to Type Definition"})
-vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code Actions" })
 vim.keymap.set("n", "<leader>la", vim.lsp.buf.code_action, { desc = "Code Actions" })
 vim.keymap.set("n", "<leader>lf", vim.lsp.buf.format, { desc = "Format" })
 
