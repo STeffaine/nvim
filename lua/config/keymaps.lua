@@ -4,8 +4,8 @@ vim.keymap.set("n", "<leader>o", "<cmd>Ex %:h<CR>", { desc = "Open vim explorer 
 
 -- Buffers
 vim.keymap.set("n", "<leader>c", "<cmd>bw<CR>", { desc = "Write and close current buffer" })
-vim.keymap.set("n", "<leader>[", "<cmd>bprev<CR>", { desc = "Go to previous buffer"})
-vim.keymap.set("n", "<leader>]", "<cmd>bnext<CR>", { desc = "Go to next buffer"})
+vim.keymap.set("n", "<leader>[", "<cmd>bprev<CR>", { desc = "Go to previous buffer" })
+vim.keymap.set("n", "<leader>]", "<cmd>bnext<CR>", { desc = "Go to next buffer" })
 
 -- Keymaps for finding things
 local builtin = require("telescope.builtin")
@@ -13,14 +13,14 @@ vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Find files by na
 vim.keymap.set("n", "<leader>ft", builtin.live_grep, { desc = "Grep over all files in wd 'find text'" })
 vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Find buffers" })
 vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Find help tags" })
-vim.keymap.set("n", "<C-space>", builtin.live_grep, { desc = "Grep over all files in the wd"})
+vim.keymap.set("n", "<C-space>", builtin.live_grep, { desc = "Grep over all files in the wd" })
 
 -- LSP Stuff
 vim.keymap.set("n", "<leader>lh", vim.lsp.buf.hover, { desc = "LSP buf Hover" })
 vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, { desc = "Go to Definition" })
 vim.keymap.set("n", "<leader>ld", vim.lsp.buf.definition, { desc = "Go to Definition" })
-vim.keymap.set("n", "<leader>lt", vim.lsp.buf.type_definition, { desc = "Go to Type Definition"})
-vim.keymap.set("n", "<leader>gt", vim.lsp.buf.type_definition, { desc = "Go to Type Definition"})
+vim.keymap.set("n", "<leader>lt", vim.lsp.buf.type_definition, { desc = "Go to Type Definition" })
+vim.keymap.set("n", "<leader>gt", vim.lsp.buf.type_definition, { desc = "Go to Type Definition" })
 vim.keymap.set("n", "<leader>la", vim.lsp.buf.code_action, { desc = "Code Actions" })
 vim.keymap.set("n", "<leader>lf", vim.lsp.buf.format, { desc = "Format" })
 
