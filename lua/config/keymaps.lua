@@ -3,7 +3,7 @@ vim.keymap.set("n", "<leader>O", "<cmd>e .<CR>", { desc = "Open vim explorer in 
 vim.keymap.set("n", "<leader>o", "<cmd>Ex %:h<CR>", { desc = "Open vim explorer in the files dir" })
 
 -- Buffers
-vim.keymap.set("n", "<leader>c", "<cmd>bw<CR>", { desc = "Write and close current buffer" })
+vim.keymap.set("n", "<leader>c", "<cmd>bw!<CR>", { desc = "Write and close current buffer" })
 vim.keymap.set("n", "<leader>[", "<cmd>bprev<CR>", { desc = "Go to previous buffer" })
 vim.keymap.set("n", "<leader>]", "<cmd>bnext<CR>", { desc = "Go to next buffer" })
 
