@@ -7,6 +7,13 @@ vim.keymap.set("n", "<leader>c", "<cmd>bw!<CR>", { desc = "Write and close curre
 vim.keymap.set("n", "<leader>[", "<cmd>bprev<CR>", { desc = "Go to previous buffer" })
 vim.keymap.set("n", "<leader>]", "<cmd>bnext<CR>", { desc = "Go to next buffer" })
 
+-- Windows
+vim.keymap.set("n", "<C-h>", "<cmd>wincmd h<CR>", { desc = "Select window to left"})
+vim.keymap.set("n", "<C-j>", "<cmd>wincmd j<CR>", { desc = "Select window to left"})
+vim.keymap.set("n", "<C-k>", "<cmd>wincmd k<CR>", { desc = "Select window to left"})
+vim.keymap.set("n", "<C-l>", "<cmd>wincmd l<CR>", { desc = "Select window to left"})
+vim.keymap.set("n", "<leader>p", "<cmd>Lexplore<CR>", { desc = "Open Explore in VSplit"})
+
 -- Keymaps for finding things
 local builtin = require("telescope.builtin")
 vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Find files by name" })
