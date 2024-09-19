@@ -32,6 +32,7 @@ return {
         filetypes = { "go", "gomod", "gowork", "gotmpl" },
         root_dir = lspconfig.util.root_pattern("go.work", "go.mod", ".git"),
         settings = {
+          gofumpt = true,
           completeUnimported = true,
           usePlaceholders = true,
           analyses = {
@@ -69,9 +70,6 @@ return {
       null_ls.setup({
         sources = {
 
-          -- go
-          -- require("none-ls.formatting.gofumpt"),
-          -- require("none-ls.formatting.goimports-reviser"),
 
           -- js/ts
           formatting.prettier.with({
@@ -84,6 +82,7 @@ return {
               "markdown",
               "graphql",
               "lua",
+              "go",
             },
           }),
 
