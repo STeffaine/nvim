@@ -6,6 +6,8 @@ vim.keymap.set("n", "<leader>o", "<cmd>Ex %:h<CR>", { desc = "Open vim explorer 
 vim.keymap.set("n", "<leader>c", "<cmd>bw!<CR>", { desc = "Write and close current buffer" })
 vim.keymap.set("n", "<leader>[", "<cmd>bprev<CR>", { desc = "Go to previous buffer" })
 vim.keymap.set("n", "<leader>]", "<cmd>bnext<CR>", { desc = "Go to next buffer" })
+vim.keymap.set("n", "<leader>q", "<cmd>q<CR>", { desc = "quit file"})
+vim.keymap.set("n", "<leader>Q", "<cmd>q!<CR>", { desc = "quit file force"})
 
 -- Windows
 vim.keymap.set("n", "<C-h>", "<cmd>wincmd h<CR>", { desc = "Select window to left"})
