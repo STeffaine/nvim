@@ -34,6 +34,19 @@ vim.keymap.set("n", "<leader>la", vim.lsp.buf.code_action, { desc = "Code Action
 vim.keymap.set("n", "<leader>lf", vim.lsp.buf.format, { desc = "Format" })
 vim.keymap.set("n", "<leader>ln", vim.diagnostic.goto_next, { desc = "Go to next lsp error"})
 
+-- Harpoon
+local harpoon = require("harpoon")
+harpoon:setup()
+
+vim.keymap.set("n", "<leader>hj", function() harpoon:list():add() end, { desc = "Harpoon Add mark"})
+vim.keymap.set("n", "<leader>hh", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, { desc = "Harpoon UI toggle"} )
+
+vim.keymap.set("n", "<leader>ha", function() harpoon:list():select(1) end)
+vim.keymap.set("n", "<leader>hs", function() harpoon:list():select(2) end)
+vim.keymap.set("n", "<leader>hd", function() harpoon:list():select(3) end)
+vim.keymap.set("n", "<leader>hf", function() harpoon:list():select(4) end)
+vim.keymap.set("n", "<leader>hg", function() harpoon:list():select(5) end)
+
 -- DAP Stuff
 local dap = require("dap")
 vim.keymap.set("n", "<leader>db", dap.toggle_breakpoint, { desc = "DAP Toggle Breakpoint" })
