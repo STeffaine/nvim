@@ -51,3 +51,12 @@ vim.opt.listchars = {
 }
 
 vim.opt.termguicolors = true
+
+
+-- Setup filetype detection for docker-compose.yml
+vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
+  pattern = "docker-compose*.yml",
+  callback = function()
+    vim.bo.filetype = "dockercompose"
+  end,
+})

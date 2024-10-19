@@ -41,6 +41,15 @@ return {
         },
       })
 
+      lspconfig.dockerls.setup({
+        capabilities = capabilities,
+      })
+
+      lspconfig.docker_compose_language_service.setup({
+        filetypes = { "dockercompose" },
+        capabilities = capabilities,
+      })
+
       lspconfig.tailwindcss.setup({
         capabilities = capabilities,
       })
