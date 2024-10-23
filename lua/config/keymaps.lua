@@ -14,6 +14,7 @@ vim.keymap.set("n", "<C-h>", "<cmd>wincmd h<CR>", { desc = "Select window to lef
 vim.keymap.set("n", "<C-j>", "<cmd>wincmd j<CR>", { desc = "Select window to left" })
 vim.keymap.set("n", "<C-k>", "<cmd>wincmd k<CR>", { desc = "Select window to left" })
 vim.keymap.set("n", "<C-l>", "<cmd>wincmd l<CR>", { desc = "Select window to left" })
+vim.keymap.set("n", "<leader>v", "<cmd>vsplit<CR>", { desc = "Open a VSplit"})
 vim.keymap.set("n", "<leader>p", "<cmd>Lexplore<CR>", { desc = "Open Explore in VSplit" })
 
 -- Keymaps for finding things
