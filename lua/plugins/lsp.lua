@@ -10,6 +10,7 @@ return {
     config = function()
       require("mason-lspconfig").setup({
         ensure_installed = {
+          "ansiblels",
           "lua_ls",
           "ts_ls",
           "gopls",
