@@ -42,6 +42,17 @@ return {
         },
       })
 
+      lspconfig.ansiblels.setup({
+        on_attach = function(client, bufnr)
+          -- Check if the working directory is named "ansible"
+          local cwd = vim.fn.getcwd()
+          if not cwd:match("/ansible$") then
+            client.stop() -- Stop the LSP client if not in an "ansible" directory
+          end
+        end,
+        filetypes = { "yaml", "yml" },
+      })
+
       lspconfig.dockerls.setup({
         capabilities = capabilities,
       })
@@ -77,7 +88,6 @@ return {
 
       null_ls.setup({
         sources = {
-
 
           -- js/ts
           formatting.prettier.with({
