@@ -61,8 +61,6 @@ return {
       lspconfig.ts_ls.setup({
         capabilities = capabilities,
       })
-      --      lspconfig.dockerls.setup({})
-      --      lspconfig.docker_compose_language_service.setup({})
     end,
   },
   -- linting stuffs
