@@ -54,6 +54,7 @@ return {
       })
 
       lspconfig.dockerls.setup({
+        filetypes = { "dockerfile" },
         capabilities = capabilities,
       })
 
@@ -63,13 +64,16 @@ return {
       })
 
       lspconfig.tailwindcss.setup({
+        filetypes = { "css", "scss", "less", "html", "yaml", "markdown", "graphql" },
         capabilities = capabilities,
       })
 
       lspconfig.lua_ls.setup({
+        filetypes = { "lua" },
         capabilities = capabilities,
       })
       lspconfig.ts_ls.setup({
+        filetypes = { "typescript", "typescriptreact" },
         capabilities = capabilities,
       })
     end,
