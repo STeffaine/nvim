@@ -14,7 +14,7 @@ vim.keymap.set("n", "<C-h>", "<cmd>wincmd h<CR>", { desc = "Select window to lef
 vim.keymap.set("n", "<C-j>", "<cmd>wincmd j<CR>", { desc = "Select window to left" })
 vim.keymap.set("n", "<C-k>", "<cmd>wincmd k<CR>", { desc = "Select window to left" })
 vim.keymap.set("n", "<C-l>", "<cmd>wincmd l<CR>", { desc = "Select window to left" })
-vim.keymap.set("n", "<leader>v", "<cmd>vsplit<CR>", { desc = "Open a VSplit"})
+vim.keymap.set("n", "<leader>v", "<cmd>vsplit<CR>", { desc = "Open a VSplit" })
 vim.keymap.set("n", "<leader>p", "<cmd>Lexplore<CR>", { desc = "Open Explore in VSplit" })
 
 -- Keymaps for finding things
@@ -33,20 +33,34 @@ vim.keymap.set("n", "<leader>lt", vim.lsp.buf.type_definition, { desc = "Go to T
 vim.keymap.set("n", "<leader>gt", vim.lsp.buf.type_definition, { desc = "Go to Type Definition" })
 vim.keymap.set("n", "<leader>la", vim.lsp.buf.code_action, { desc = "Code Actions" })
 vim.keymap.set("n", "<leader>lf", vim.lsp.buf.format, { desc = "Format" })
-vim.keymap.set("n", "<leader>ln", vim.diagnostic.goto_next, { desc = "Go to next lsp error"})
+vim.keymap.set("n", "<leader>ln", vim.diagnostic.goto_next, { desc = "Go to next lsp error" })
 
 -- Harpoon
 local harpoon = require("harpoon")
 harpoon:setup()
 
-vim.keymap.set("n", "<leader>hj", function() harpoon:list():add() end, { desc = "Harpoon Add mark"})
-vim.keymap.set("n", "<leader>hh", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, { desc = "Harpoon UI toggle"} )
+vim.keymap.set("n", "<leader>hj", function()
+  harpoon:list():add()
+end, { desc = "Harpoon Add mark" })
+vim.keymap.set("n", "<leader>hh", function()
+  harpoon.ui:toggle_quick_menu(harpoon:list())
+end, { desc = "Harpoon UI toggle" })
 
-vim.keymap.set("n", "<leader>ha", function() harpoon:list():select(1) end, { desc = "Harpoon Go to 1"})
-vim.keymap.set("n", "<leader>hs", function() harpoon:list():select(2) end, { desc = "Harpoon Go to 2"})
-vim.keymap.set("n", "<leader>hd", function() harpoon:list():select(3) end, { desc = "Harpoon Go to 3"})
-vim.keymap.set("n", "<leader>hf", function() harpoon:list():select(4) end, { desc = "Harpoon Go to 4"})
-vim.keymap.set("n", "<leader>hg", function() harpoon:list():select(5) end, { desc = "Harpoon Go to 5"})
+vim.keymap.set("n", "<leader>ha", function()
+  harpoon:list():select(1)
+end, { desc = "Harpoon Go to 1" })
+vim.keymap.set("n", "<leader>hs", function()
+  harpoon:list():select(2)
+end, { desc = "Harpoon Go to 2" })
+vim.keymap.set("n", "<leader>hd", function()
+  harpoon:list():select(3)
+end, { desc = "Harpoon Go to 3" })
+vim.keymap.set("n", "<leader>hf", function()
+  harpoon:list():select(4)
+end, { desc = "Harpoon Go to 4" })
+vim.keymap.set("n", "<leader>hg", function()
+  harpoon:list():select(5)
+end, { desc = "Harpoon Go to 5" })
 
 -- DAP Stuff
 local dap = require("dap")

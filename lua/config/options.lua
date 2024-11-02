@@ -44,20 +44,18 @@ vim.opt.softtabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 vim.opt.listchars = {
-    tab = '  ',      -- Character to show for tabs
-    trail = '·',     -- Character to show for trailing spaces
-    extends = '>',   -- Character to show for wrapped lines
-    precedes = '<',  -- Character to show for indentations (e.g., in insert mode)
+  tab = "  ", -- Character to show for tabs
+  trail = "·", -- Character to show for trailing spaces
+  extends = ">", -- Character to show for wrapped lines
+  precedes = "<", -- Character to show for indentations (e.g., in insert mode)
 }
 
 vim.opt.termguicolors = true
 
-
 -- Setup filetype detection for docker-compose.yml
-vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   pattern = "docker-compose*.yml",
   callback = function()
     vim.bo.filetype = "dockercompose"
   end,
 })
-
