@@ -111,7 +111,14 @@ return {
           require("none-ls.diagnostics.eslint_d"),
           require("none-ls.formatting.eslint_d"),
           -- stylua
-          formatting.stylua,
+          formatting.stylua.with({
+            extra_args = {
+              "--indent-type",
+              "Spaces", -- Set indentation to spaces
+              "--indent-width",
+              "2", -- Set 2 spaces for indentation
+            },
+          }),
         },
       })
     end,
