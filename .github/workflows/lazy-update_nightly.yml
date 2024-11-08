@@ -1,0 +1,50 @@
+name: Auto Update LazyVim Plugins
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # Runs every day at midnight (adjust as needed)
+
+jobs:
+  update-plugins:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Neovim
+        uses: rcmdnk/neovim-action@v2 # or another action to install Neovim
+
+      - name: Update LazyVim Plugins
+        run: |
+          # Update plugins in headless mode
+          nvim --headless +Lazy update +qall
+          
+      - name: Run Health Check
+        id: health_check
+        run: |
+          # Run health check in headless mode, saving output
+          nvim --headless +checkhealth +qall | tee health_check.log
+
+          # Check if "healthcheck passed" is in the output
+          if grep -q "All checks passed" health_check.log; then
+            echo "All health checks passed."
+            echo "passed=true" >> $GITHUB_ENV
+          else
+            echo "Health check failed."
+            echo "passed=false" >> $GITHUB_ENV
+          fi
+
+      - name: Commit and Push Changes
+        if: env.passed == 'true'
+        run: |
+          # Configure Git
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Check if lazy-lock.json changed, commit and push if so
+          git diff --exit-code lazy-lock.json || {
+            git add lazy-lock.json
+            git commit -m "Update LazyVim plugins"
+            git push
+          }
