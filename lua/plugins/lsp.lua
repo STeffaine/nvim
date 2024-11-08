@@ -100,6 +100,16 @@ return {
       null_ls.setup({
         sources = {
 
+          formatting.shfmt.with({
+            filetypes = {
+              "sh",
+            },
+            extra_args = {
+              "--indent-size",
+              "2",
+            },
+          }),
+
           -- js/ts
           formatting.prettier.with({
             filetypes = {
