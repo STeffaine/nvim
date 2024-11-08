@@ -13,17 +13,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Download and Extract Neovim AppImage
+      - name: Download and Set Up Neovim
         run: |
           # Download the latest Neovim AppImage
           curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
           chmod u+x nvim.appimage
-          
-          # Extract the AppImage contents
-          ./nvim.appimage --appimage-extract
-
-          # Move the extracted binary to /usr/local/bin
-          mv squashfs-root/usr/bin/nvim /usr/local/bin/nvim
+          # Move it to a directory in PATH so it can be used as 'nvim'
+          mv nvim.appimage /usr/local/bin/nvim
 
       - name: Update LazyVim Plugins
         run: |
@@ -58,4 +54,3 @@ jobs:
             git commit -m "Update LazyVim plugins"
             git push
           }
-
