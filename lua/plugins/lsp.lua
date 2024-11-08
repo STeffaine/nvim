@@ -10,6 +10,7 @@ return {
     config = function()
       require("mason-lspconfig").setup({
         ensure_installed = {
+          "bashls",
           "ansiblels",
           "lua_ls",
           "ts_ls",
@@ -26,6 +27,12 @@ return {
     config = function()
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
       local lspconfig = require("lspconfig")
+
+      lspconfig.bashls.setup({
+        capabilities = capabilities,
+        cmd = { "bash-language-server", "start" },
+        filetypes = { "sh", "zsh" },
+      })
 
       lspconfig.gopls.setup({
         capabilities = capabilities,
