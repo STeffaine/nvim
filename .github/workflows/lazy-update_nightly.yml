@@ -1,7 +1,7 @@
 name: Auto Update LazyVim Plugins
 
 on:
-  workflow_dispatch: # Allow manual triggering of the workflow
+  workflow_dispatch:  # Allows manual triggering of the workflow
   schedule:
     - cron: '0 0 * * *' # Runs every day at midnight (adjust as needed)
 
@@ -13,8 +13,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set up Neovim
-        uses: rcmdnk/neovim-action@v2 # or another action to install Neovim
+      - name: Download and Set Up Neovim
+        run: |
+          # Download the latest Neovim AppImage
+          curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
+          chmod u+x nvim.appimage
+          # Move it to a directory in PATH so it can be used as 'nvim'
+          mv nvim.appimage /usr/local/bin/nvim
 
       - name: Update LazyVim Plugins
         run: |
@@ -27,7 +32,7 @@ jobs:
           # Run health check in headless mode, saving output
           nvim --headless +checkhealth +qall | tee health_check.log
 
-          # Check if "healthcheck passed" is in the output
+          # Check if "All checks passed" is in the output
           if grep -q "All checks passed" health_check.log; then
             echo "All health checks passed."
             echo "passed=true" >> $GITHUB_ENV
