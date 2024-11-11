@@ -39,6 +39,10 @@ vim.keymap.set("n", "<leader>ln", vim.diagnostic.goto_next, { desc = "Go to next
 local harpoon = require("harpoon")
 harpoon:setup()
 
+
+-- Notes through Obsidian
+vim.keymap.set("n", "<leader>ns", "<cmd>ObsidianSearch<cr>", { desc = "Open Obsidian Note" })
+
 vim.keymap.set("n", "<leader>hj", function()
   harpoon:list():add()
 end, { desc = "Harpoon Add mark" })

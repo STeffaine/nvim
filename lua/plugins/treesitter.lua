@@ -39,6 +39,7 @@ return {
           "rust",
           "terraform",
           "zig",
+          "markdown_inline",
         },
       })
     end,
