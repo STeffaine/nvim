@@ -110,7 +110,6 @@ return {
             },
           }),
 
-          -- js/ts
           formatting.prettier.with({
             filetypes = {
               "css",
@@ -122,6 +121,16 @@ return {
               "graphql",
               "lua",
               "go",
+            },
+            extra_args = {
+              "--print-width",
+              "120",
+              "--tab-width",
+              "2",
+              "--use-tabs",
+              "false",
+             "--single-quote",
+              "false",
             },
           }),
 
