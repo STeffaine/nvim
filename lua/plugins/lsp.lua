@@ -129,7 +129,7 @@ return {
               "2",
               "--use-tabs",
               "false",
-             "--single-quote",
+              "--single-quote",
               "false",
             },
           }),

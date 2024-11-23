@@ -1,11 +1,11 @@
 return {
-  'RRethy/vim-illuminate',
+  "RRethy/vim-illuminate",
   config = function()
-    require('illuminate').configure({
+    require("illuminate").configure({
       providers = {
-        'lsp',
-        'treesitter',
-        'regex',
+        "lsp",
+        "treesitter",
+        "regex",
       },
       delay = 100,
       filetype_overrides = {},
@@ -14,7 +14,9 @@ return {
       min_count_to_highlight = 1,
       case_insensitive_regex = true,
 
-      should_enable = function(bufnr) return true end,
+      should_enable = function(bufnr)
+        return true
+      end,
     })
   end,
 }
