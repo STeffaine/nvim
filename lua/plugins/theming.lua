@@ -12,12 +12,16 @@ return {
     opts = {
       options = {
         icons_enabled = true,
-        component_separators = "",
+        component_separators = "<",
         section_separators = "",
+        lualine_a = { "mode" },
+        lualine_b = { "branch", "diff", "diagnostics" },
+        lualine_c = { "filename" },
       },
     },
     dependencies = {
       "kyazdani42/nvim-web-devicons",
+      "arkav/lualine-lsp-progress",
     },
   },
 }
