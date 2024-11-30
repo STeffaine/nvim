@@ -67,10 +67,10 @@ vim.keymap.set("n", "<leader>hg", function()
   harpoon:list():select(5)
 end, { desc = "Harpoon Go to 5" })
 
--- DAP Stuff
-local dap = require("dap")
-vim.keymap.set("n", "<leader>db", dap.toggle_breakpoint, { desc = "DAP Toggle Breakpoint" })
-vim.keymap.set("n", "<leader>dc", dap.continue, { desc = "DAP Continue" })
+-- lAP Stuff
+-- local dap = require("dap")
+-- vim.keymap.set("n", "<leader>db", dap.toggle_breakpoint, { desc = "DAP Toggle Breakpoint" })
+-- vim.keymap.set("n", "<leader>dc", dap.continue, { desc = "DAP Continue" })
 
 -- Rest.nvim
 vim.keymap.set("n", "<leader>ro", "<cmd>rightb Rest open<cr>", { desc = "Open Rest Panel" })
