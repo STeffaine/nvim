@@ -7,7 +7,7 @@ return {
         "treesitter",
         "regex",
       },
-      delay = 100,
+      delay = 20,
       filetype_overrides = {},
       filetype_denylist = {},
       under_curor = true,
