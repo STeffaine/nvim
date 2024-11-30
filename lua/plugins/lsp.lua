@@ -88,6 +88,7 @@ return {
   -- linting stuffs
   {
     "nvimtools/none-ls.nvim",
+    event = "VeryLazy",
     dependencies = {
       "nvimtools/none-ls-extras.nvim",
     },
