@@ -1,12 +1,16 @@
 return {
   {
     "HiPhish/rainbow-delimiters.nvim",
+    lazy = false,
+    event = "VeryLazy",
     config = function()
       require("rainbow-delimiters.setup").setup()
     end,
   },
   {
     "lukas-reineke/indent-blankline.nvim",
+    lazy = true,
+    event = "VeryLazy",
     main = "ibl",
     config = function()
       local highlight = {

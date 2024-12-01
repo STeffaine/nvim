@@ -1,6 +1,7 @@
 return {
   {
     "hrsh7th/cmp-nvim-lsp",
+    event = "VeryLazy",
   },
   {
     "L3MON4D3/LuaSnip",

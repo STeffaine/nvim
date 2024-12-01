@@ -2,6 +2,7 @@ return {
   {
     "mbbill/undotree",
     lazy = true,
+    event = "VeryLazy",
     init = function()
       vim.g.undotree_WindowLayout = 4
       vim.g.undotree_SetFocusWhenToggle = 1
