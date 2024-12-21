@@ -21,7 +21,6 @@ return {
     },
     dependencies = {
       "kyazdani42/nvim-web-devicons",
-      "arkav/lualine-lsp-progress",
     },
   },
 }
