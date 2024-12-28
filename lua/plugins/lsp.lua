@@ -28,7 +28,8 @@ return {
     event = { "BufReadPre", "BufNewFile" },
     cmd = { "LspInfo", "LspInstall", "LspUninstall", "LspRestart" },
     config = function()
-      local capabilities = require("cmp_nvim_lsp").default_capabilities()
+      -- local capabilities = require("cmp_nvim_lsp").default_capabilities()
+      local capabilities = {}
       local lspconfig = require("lspconfig")
 
       lspconfig.bashls.setup({
