@@ -4,6 +4,9 @@ return {
     build = ":TSUpdate",
     lazy = true,
     event = "VeryLazy",
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter-context",
+    },
     config = function()
       local config = require("nvim-treesitter.configs")
       config.setup({
