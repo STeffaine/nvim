@@ -66,26 +66,6 @@ end, { desc = "Harpoon Go to 5" })
 -- vim.keymap.set("n", "<leader>db", dap.toggle_breakpoint, { desc = "DAP Toggle Breakpoint" })
 -- vim.keymap.set("n", "<leader>dc", dap.continue, { desc = "DAP Continue" })
 
--- Rest.nvim
-vim.keymap.set("n", "<leader>ro", "<cmd>rightb Rest open<cr>", { desc = "Open Rest Panel" })
-vim.keymap.set("n", "<leader>rr", "<cmd>Rest run<cr>", { desc = "REST: Run request under the cursor" })
-vim.keymap.set("n", "<leader>rl", "<cmd>Rest last<cr>", { desc = "REST: Run last request" })
-vim.keymap.set("n", "<leader>rg", "<cmd>Rest logs<cr>", { desc = "REST: Run last request" })
-vim.keymap.set("n", "<leader>rc", "<cmd>Rest cookies<cr>", { desc = "REST: Edit cookies file" })
-vim.keymap.set(
-  "n",
-  "<leader>res",
-  "<cmd>Rest env show<cr>",
-  { desc = "REST: Show dotenv file registered to current .http file" }
-)
-vim.keymap.set(
-  "n",
-  "<leader>rec",
-  "<cmd>Rest env select<cr>",
-  { desc = "REST: Select & register .env file with vim.ui.select()" }
-)
-vim.keymap.set("n", "<leader>rep", "<cmd>Rest env set<cr>", { desc = "REST: Register .env file to current .http file" })
-
 -- Git Stuff
 vim.keymap.set("n", "<leader>sl", "<cmd>LazyGit<cr>", { desc = "Open LazyGit" })
 require("gitsigns").setup({
