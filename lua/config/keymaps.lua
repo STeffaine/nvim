@@ -39,18 +39,12 @@ vim.keymap.set("n", "<leader>lr", "<cmd>LspRestart<CR>", { desc = "Restart LSP" 
 -- Harpoon
 local harpoon = require("harpoon")
 harpoon:setup()
-
-
--- Notes through Obsidian
-vim.keymap.set("n", "<leader>ns", "<cmd>ObsidianSearch<cr>", { desc = "Open Obsidian Note" })
-
 vim.keymap.set("n", "<leader>hj", function()
   harpoon:list():add()
 end, { desc = "Harpoon Add mark" })
 vim.keymap.set("n", "<leader>hh", function()
   harpoon.ui:toggle_quick_menu(harpoon:list())
 end, { desc = "Harpoon UI toggle" })
-
 vim.keymap.set("n", "<leader>ha", function()
   harpoon:list():select(1)
 end, { desc = "Harpoon Go to 1" })
