@@ -53,6 +53,7 @@ jobs:
         run: |
           # Ensure nvim is available
           which nvim
+          nvim --headless
           nvim --headless +Lazy update +qall
 
       # Step 4: Check if lazy-lock.json changed
