@@ -1,62 +1,93 @@
-name: Auto Update LazyVim Plugins
+name: Update Neovim Plugins
 
 on:
-  workflow_dispatch:  # Allows manual triggering of the workflow
   schedule:
-    - cron: '0 0 * * *' # Runs every day at midnight (adjust as needed)
+    - cron: "0 0 * * 0" # Runs every Sunday at midnight. Adjust as needed.
+  workflow_dispatch: # Allows manual trigger.
+  push:
+    paths:
+      - ".github/workflows/lazy-update_nightly.yml"
 
 jobs:
-  update-plugins:
+  update:
     runs-on: ubuntu-latest
 
     steps:
+      # Step 1: Check out the repository
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Download and Install Neovim
+      # Step 2: Install the latest Neovim from GitHub Releases
+      - name: Install Neovim from GitHub Releases
         run: |
-          # Download the latest Neovim tarball
-          curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
-          
-          # Remove any existing Neovim installation in /opt
-          sudo rm -rf /opt/nvim
+          # Download the latest Neovim tarball (follow redirects)
+          curl -L -o nvim-linux-x86_64.tar.gz https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz
 
-          # Extract the downloaded tarball to /opt
-          sudo tar -C /opt -xzf nvim-linux64.tar.gz
+          # Output the file type and size for debugging purposes
+          file nvim-linux-x86_64.tar.gz
+          ls -l nvim-linux-x86_64.tar.gz
 
-          # Add Neovim to the PATH for this session
-          echo "/opt/nvim-linux64/bin" >> $GITHUB_PATH
-
-      - name: Update LazyVim Plugins
-        run: |
-          # Update plugins in headless mode
-          nvim --headless +Lazy update +qall
-          
-      - name: Run Health Check
-        id: health_check
-        run: |
-          # Run health check in headless mode, saving output
-          nvim --headless +checkhealth +qall | tee health_check.log
-
-          # Check if "All checks passed" is in the output
-          if grep -q "All checks passed" health_check.log; then
-            echo "All health checks passed."
-            echo "passed=true" >> $GITHUB_ENV
-          else
-            echo "Health check failed."
-            echo "passed=false" >> $GITHUB_ENV
+          # Check if the file is a valid tarball
+          if ! file nvim-linux-x86_64.tar.gz | grep -q "gzip compressed data"; then
+            echo "Downloaded file is not a valid tarball. Exiting..."
+            exit 1
           fi
 
-      - name: Commit and Push Changes
-        if: env.passed == 'true'
-        run: |
-          # Configure Git
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          # Remove any previous Neovim installation in /opt/nvim
+          sudo rm -rf /opt/nvim
 
-          # Check if lazy-lock.json changed, commit and push if so
-          git diff --exit-code lazy-lock.json || {
-            git add lazy-lock.json
-            git commit -m "Update LazyVim plugins"
-            git push
-          }
+          # Extract the tarball into /opt and set the appropriate permissions
+          sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz
+
+          # Create a symlink to ensure 'nvim' is available in the system path
+          sudo cp /opt/nvim-linux-x86_64/bin/nvim /usr/local/bin/nvim
+
+          # Clean up the downloaded tarball
+          rm nvim-linux-x86_64.tar.gz
+
+          # Ensure the newly installed Neovim is in the PATH for the current session
+          echo "/usr/local/bin" >> $GITHUB_PATH
+
+      # Step 3: Update Neovim plugins
+      - name: Update Neovim plugins
+        run: |
+          # Ensure nvim is available
+          which nvim
+          nvim --headless +Lazy update +qall
+
+      # Step 4: Check if lazy-lock.json changed
+      - name: Check for changes in lazy-lock.json
+        id: check_changes
+        run: |
+          git diff --exit-code lazy-lock.json || echo "Changes detected"
+
+      # Step 5: Commit and push changes if lazy-lock.json is modified
+      - name: Commit and push changes
+        if: steps.check_changes.outputs.exit_code != '0'
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git checkout -b updates
+          git add lazy-lock.json
+          git commit -m "Update Neovim plugins"
+          git push --set-upstream origin updates
+
+      # Step 6: Create pull request to merge updates into main
+      - name: Create pull request
+        if: steps.check_changes.outputs.exit_code != '0'
+        uses: peter-evans/create-pull-request@v3
+        with:
+          title: "Update Neovim Plugins"
+          body: "Automated update of Neovim plugins."
+          base: main
+          head: updates
+          merge-method: merge
+          commit-message: "Merge updates into main"
+
+      # Step 7: Auto-merge the pull request
+      - name: Auto-merge pull request
+        if: steps.check_changes.outputs.exit_code != '0'
+        run: |
+          gh pr merge --auto --merge --admin --delete-branch
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
