@@ -35,6 +35,7 @@ vim.keymap.set("n", "<leader>la", vim.lsp.buf.code_action, { desc = "Code Action
 vim.keymap.set("n", "<leader>lf", vim.lsp.buf.format, { desc = "Format" })
 vim.keymap.set("n", "<leader>ln", vim.diagnostic.goto_next, { desc = "Go to next lsp error" })
 vim.keymap.set("n", "<leader>lr", "<cmd>LspRestart<CR>", { desc = "Restart LSP" })
+vim.keymap.set("n", "<leader>lt", "<cmd>retab<CR>", { desc = "Tabify" })
 
 -- Harpoon
 local harpoon = require("harpoon")
