@@ -67,6 +67,14 @@ end, { desc = "Harpoon Go to 5" })
 -- vim.keymap.set("n", "<leader>db", dap.toggle_breakpoint, { desc = "DAP Toggle Breakpoint" })
 -- vim.keymap.set("n", "<leader>dc", dap.continue, { desc = "DAP Continue" })
 
+-- Trouble
+vim.keymap.set("n", "<leader>t", "<cmd>Trouble diagnostics toggle<cr>", { desc = "Trouble Toggle" })
+vim.keymap.set("n", "<leader>Tb", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", { desc = "Buffer Diagnostics" })
+vim.keymap.set("n", "<leader>Ts", "<cmd>Trouble symbols toggle focus=false<cr>", { desc = "Symbols" })
+vim.keymap.set("n", "<leader>Tl", "<cmd>Trouble lsp toggle focus=false win.position=right<cr>", { desc = "LSP Definitions / references / ... " })
+vim.keymap.set("n", "<leader>TL", "<cmd>Trouble loclist toggle<cr>", { desc = "Location List" })
+vim.keymap.set("n", "<leader>Tq", "<cmd>Trouble qflist toggle<cr>", { desc = "Quickfix List" })
+
 -- Git Stuff
 vim.keymap.set("n", "<leader>sl", "<cmd>LazyGit<cr>", { desc = "Open LazyGit" })
 require("gitsigns").setup({
