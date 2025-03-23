@@ -22,6 +22,8 @@ return {
           "javascript",
           "markdown",
           "go",
+          "gomod",
+          "gosum",
           "python",
           "typescript",
           "dockerfile",
