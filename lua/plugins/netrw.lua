@@ -1,8 +1,6 @@
 return {
   {
     "prichrd/netrw.nvim",
-    event = "BufRead",
-    lazy = true,
     opts = {},
     dependencies = {
       "kyazdani42/nvim-web-devicons",
