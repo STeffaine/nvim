@@ -125,5 +125,10 @@ require("gitsigns").setup({
     map("n", "<leader>sD", function()
       gitsigns.diffthis("~")
     end)
+    map("n", "<leader>sv", function()
+      vim.cmd("Gitsigns toggle_numhl")
+      vim.cmd("Gitsigns toggle_linehl")
+    end, { desc = "git line visuals" })
+    map("n", "<leader>sw", vim.cmd("Gitsigns toggle_word_diff"), { desc = "git word diff" })
   end,
 })
