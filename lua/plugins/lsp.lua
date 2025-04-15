@@ -105,6 +105,17 @@ return {
       null_ls.setup({
         sources = {
 
+          formatting.nixpkgs_fmt.with({
+            filetypes = {
+              "nix",
+            },
+          }),
+          formatting.nixfmt.with({
+            filetypes = {
+              "nix",
+            },
+          }),
+
           formatting.shfmt.with({
             filetypes = {
               "sh",
