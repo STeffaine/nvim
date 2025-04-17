@@ -19,6 +19,7 @@ return {
           "docker_compose_language_service",
           "dockerls",
           "tailwindcss",
+          "nil_ls"
         },
       })
     end,
@@ -85,6 +86,10 @@ return {
       })
       lspconfig.ts_ls.setup({
         filetypes = { "typescript", "typescriptreact" },
+        capabilities = capabilities,
+      })
+      lspconfig.nil_ls.setup({
+        filetypes = { "nix" },
         capabilities = capabilities,
       })
     end,
