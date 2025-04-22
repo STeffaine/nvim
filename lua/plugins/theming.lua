@@ -2,6 +2,7 @@ return {
   {
     "catppuccin/nvim",
     name = "catppuccin-macchiato",
+    event = "BufReadPre",
     config = function()
       vim.cmd.colorscheme("catppuccin-macchiato")
     end,
