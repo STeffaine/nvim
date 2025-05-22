@@ -66,6 +66,12 @@ return {
         filetypes = { "yaml", "yml" },
       })
 
+      lspconfig.pylsp.setup({
+        capabilities = capabilities,
+        cmd = { "pylsp" },
+        filetypes = { "python" },
+      })
+
       lspconfig.dockerls.setup({
         filetypes = { "dockerfile" },
         capabilities = capabilities,
@@ -129,6 +135,16 @@ return {
             extra_args = {
               "--indent-size",
               "2",
+            },
+          }),
+
+          
+          formatting.gofumpt.with({
+            filetypes = {
+              "go",
+              "gomod",
+              "gowork",
+              "gotmpl",
             },
           }),
 
