@@ -76,7 +76,7 @@ jobs:
       # Step 6: Create pull request to merge updates into main
       - name: Create pull request
         if: steps.check_changes.outputs.exit_code != '0'
-        uses: peter-evans/create-pull-request@v3
+        uses: peter-evans/create-pull-request@v7
         with:
           title: "Update Neovim Plugins"
           body: "Automated update of Neovim plugins."
