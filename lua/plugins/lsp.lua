@@ -1,13 +1,13 @@
 return {
   {
-    {"williamboman/mason.nvim", version = "^1.0.0"}, -- Lock version until nvim 11 is installed
+    "mason-org/mason.nvim",
     event = "VeryLazy",
     config = function()
       require("mason").setup()
     end,
   },
   {
-    { "williamboman/mason-lspconfig.nvim", version = "^1.0.0" }, -- Lock version until nvim 11 is installed
+    "mason-org/mason-lspconfig.nvim",
     event = { "BufReadPost", "BufNewFile" },
     config = function()
       require("mason-lspconfig").setup({
