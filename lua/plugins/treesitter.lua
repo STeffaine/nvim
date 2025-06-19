@@ -3,7 +3,7 @@ return {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
     lazy = true,
-    event = "VeryLazy",
+    event = "BufReadPost",
     dependencies = {
       "nvim-treesitter/nvim-treesitter-context",
     },
