@@ -94,10 +94,6 @@ return {
         filetypes = { "typescript", "typescriptreact" },
         capabilities = capabilities,
       })
-      lspconfig.nil_ls.setup({
-        filetypes = { "nix" },
-        capabilities = capabilities,
-      })
     end,
   },
   -- linting stuffs
