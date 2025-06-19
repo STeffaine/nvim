@@ -19,8 +19,7 @@ return {
           "gopls",
           "docker_compose_language_service",
           "dockerls",
-          "tailwindcss",
-          "nil_ls"
+          "tailwindcss"
         },
       })
     end,
