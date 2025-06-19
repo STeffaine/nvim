@@ -13,7 +13,7 @@ return {
       require("mason-lspconfig").setup({
         ensure_installed = {
           "bashls",
-          "ansiblels",
+          -- "ansiblels",
           "lua_ls",
           "ts_ls",
           "gopls",
@@ -39,20 +39,20 @@ return {
         filetypes = { "sh", "zsh" },
       })
 
-      lspconfig.gopls.setup({
-        capabilities = capabilities,
-        cmd = { "gopls" },
-        filetypes = { "go", "gomod", "gowork", "gotmpl" },
-        root_dir = lspconfig.util.root_pattern("go.work", "go.mod", ".git"),
-        settings = {
-          gofumpt = true,
-          completeUnimported = true,
-          usePlaceholders = true,
-          analyses = {
-            unusedparams = true,
-          },
-        },
-      })
+      -- lspconfig.gopls.setup({
+      --   capabilities = capabilities,
+      --   cmd = { "gopls" },
+      --   filetypes = { "go", "gomod", "gowork", "gotmpl" },
+      --   root_dir = lspconfig.util.root_pattern("go.work", "go.mod", ".git"),
+      --   settings = {
+      --     gofumpt = true,
+      --     completeUnimported = true,
+      --     usePlaceholders = true,
+      --     analyses = {
+      --       unusedparams = true,
+      --     },
+      --   },
+      -- })
 
       lspconfig.ansiblels.setup({
         on_attach = function(client, bufnr)
