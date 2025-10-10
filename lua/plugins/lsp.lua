@@ -94,6 +94,13 @@ return {
         filetypes = { "typescript", "typescriptreact" },
         capabilities = capabilities,
       })
+
+      lspconfig.vuels.setup({
+        capabilities = capabilities,
+        cmd = { "vls" },
+        filetypes = { "vue" },
+        root_dir = lspconfig.util.root_pattern("package.json", "vue.config.js"),
+      })
     end,
   },
   -- linting stuffs
