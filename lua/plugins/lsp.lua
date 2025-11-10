@@ -26,14 +26,14 @@ return {
   },
   {
     "neovim/nvim-lspconfig",
-    event = { "BufReadPre", "BufNewFile" },
+    event = { "BufReadPre", "BufNewFile", "BufWritePre" },
     cmd = { "LspInfo", "LspInstall", "LspUninstall", "LspRestart" },
     config = function()
       -- local capabilities = require("cmp_nvim_lsp").default_capabilities()
       local capabilities = {}
-      local lspconfig = require("lspconfig")
+      local lspconfig = vim.lsp.config
 
-      lspconfig.bashls.setup({
+      lspconfig('bashls', {
         capabilities = capabilities,
         cmd = { "bash-language-server", "start" },
         filetypes = { "sh", "zsh" },
@@ -54,7 +54,7 @@ return {
       --   },
       -- })
 
-      lspconfig.ansiblels.setup({
+      lspconfig('ansiblels', {
         on_attach = function(client, bufnr)
           -- Check if the working directory is named "ansible"
           local cwd = vim.fn.getcwd()
@@ -65,41 +65,43 @@ return {
         filetypes = { "yaml", "yml" },
       })
 
-      lspconfig.pylsp.setup({
+      lspconfig('pylsp', {
         capabilities = capabilities,
         cmd = { "pylsp" },
         filetypes = { "python" },
       })
 
-      lspconfig.dockerls.setup({
+      lspconfig('dockerls', {
         filetypes = { "dockerfile" },
         capabilities = capabilities,
       })
 
-      lspconfig.docker_compose_language_service.setup({
+      lspconfig('docker_compose_language_service', {
         filetypes = { "dockercompose" },
         capabilities = capabilities,
       })
 
-      lspconfig.tailwindcss.setup({
+      lspconfig('tailwindcss', {
         filetypes = { "css", "scss", "less", "html", "yaml", "markdown", "graphql" },
         capabilities = capabilities,
       })
 
-      lspconfig.lua_ls.setup({
+      lspconfig('lua_ls', {
         filetypes = { "lua" },
         capabilities = capabilities,
       })
-      lspconfig.ts_ls.setup({
+      lspconfig('ts_ls', {
         filetypes = { "typescript", "typescriptreact" },
         capabilities = capabilities,
       })
 
-      lspconfig.vuels.setup({
+      lspconfig('vuels', {
         capabilities = capabilities,
         cmd = { "vls" },
         filetypes = { "vue" },
-        root_dir = lspconfig.util.root_pattern("package.json", "vue.config.js"),
+        root_dir = function(bufnr, on_dir)
+          on_dir(vim.fs.root(bufnr, {'package.json', 'vue.config.js' }))
+        end,
       })
     end,
   },
