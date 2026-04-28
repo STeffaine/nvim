@@ -19,7 +19,7 @@ return {
           "gopls",
           "docker_compose_language_service",
           "dockerls",
-          "tailwindcss"
+          "tailwindcss",
         },
       })
     end,
@@ -33,7 +33,7 @@ return {
       local capabilities = {}
       local lspconfig = vim.lsp.config
 
-      lspconfig('bashls', {
+      lspconfig("bashls", {
         capabilities = capabilities,
         cmd = { "bash-language-server", "start" },
         filetypes = { "sh", "zsh" },
@@ -54,7 +54,7 @@ return {
       --   },
       -- })
 
-      lspconfig('ansiblels', {
+      lspconfig("ansiblels", {
         on_attach = function(client, bufnr)
           -- Check if the working directory is named "ansible"
           local cwd = vim.fn.getcwd()
@@ -65,42 +65,42 @@ return {
         filetypes = { "yaml", "yml" },
       })
 
-      lspconfig('pylsp', {
+      lspconfig("pylsp", {
         capabilities = capabilities,
         cmd = { "pylsp" },
         filetypes = { "python" },
       })
 
-      lspconfig('dockerls', {
+      lspconfig("dockerls", {
         filetypes = { "dockerfile" },
         capabilities = capabilities,
       })
 
-      lspconfig('docker_compose_language_service', {
+      lspconfig("docker_compose_language_service", {
         filetypes = { "dockercompose" },
         capabilities = capabilities,
       })
 
-      lspconfig('tailwindcss', {
+      lspconfig("tailwindcss", {
         filetypes = { "css", "scss", "less", "html", "yaml", "markdown", "graphql" },
         capabilities = capabilities,
       })
 
-      lspconfig('lua_ls', {
+      lspconfig("lua_ls", {
         filetypes = { "lua" },
         capabilities = capabilities,
       })
-      lspconfig('ts_ls', {
+      lspconfig("ts_ls", {
         filetypes = { "typescript", "typescriptreact" },
         capabilities = capabilities,
       })
 
-      lspconfig('vuels', {
+      lspconfig("vuels", {
         capabilities = capabilities,
         cmd = { "vls" },
         filetypes = { "vue" },
         root_dir = function(bufnr, on_dir)
-          on_dir(vim.fs.root(bufnr, {'package.json', 'vue.config.js' }))
+          on_dir(vim.fs.root(bufnr, { "package.json", "vue.config.js" }))
         end,
       })
     end,
@@ -142,7 +142,6 @@ return {
             },
           }),
 
-          
           formatting.gofumpt.with({
             filetypes = {
               "go",
