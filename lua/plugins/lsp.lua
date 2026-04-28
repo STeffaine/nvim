@@ -1,7 +1,7 @@
 return {
   {
     "mason-org/mason.nvim",
-    event = "VeryLazy",
+    lazy = false,
     config = function()
       require("mason").setup()
     end,
@@ -26,7 +26,7 @@ return {
   },
   {
     "neovim/nvim-lspconfig",
-    event = { "BufReadPre", "BufNewFile", "BufWritePre" },
+    lazy = false,
     cmd = { "LspInfo", "LspInstall", "LspUninstall", "LspRestart" },
     config = function()
       -- local capabilities = require("cmp_nvim_lsp").default_capabilities()
@@ -39,20 +39,20 @@ return {
         filetypes = { "sh", "zsh" },
       })
 
-      -- lspconfig.gopls.setup({
-      --   capabilities = capabilities,
-      --   cmd = { "gopls" },
-      --   filetypes = { "go", "gomod", "gowork", "gotmpl" },
-      --   root_dir = lspconfig.util.root_pattern("go.work", "go.mod", ".git"),
-      --   settings = {
-      --     gofumpt = true,
-      --     completeUnimported = true,
-      --     usePlaceholders = true,
-      --     analyses = {
-      --       unusedparams = true,
-      --     },
-      --   },
-      -- })
+      lspconfig.gopls.setup({
+        capabilities = capabilities,
+        cmd = { "gopls" },
+        filetypes = { "go", "gomod", "gowork", "gotmpl" },
+        root_dir = lspconfig.util.root_pattern("go.work", "go.mod", ".git"),
+        settings = {
+          gofumpt = true,
+          completeUnimported = true,
+          usePlaceholders = true,
+          analyses = {
+            unusedparams = true,
+          },
+        },
+      })
 
       lspconfig("ansiblels", {
         on_attach = function(client, bufnr)
@@ -108,7 +108,7 @@ return {
   -- linting stuffs
   {
     "nvimtools/none-ls.nvim",
-    event = "VeryLazy",
+    lazy = false,
     dependencies = {
       "nvimtools/none-ls-extras.nvim",
     },
