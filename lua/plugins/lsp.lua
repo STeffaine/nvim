@@ -6,24 +6,24 @@ return {
       require("mason").setup()
     end,
   },
-  {
-    "mason-org/mason-lspconfig.nvim",
-    event = { "BufReadPost", "BufNewFile" },
-    config = function()
-      require("mason-lspconfig").setup({
-        ensure_installed = {
-          "bashls",
-          -- "ansiblels",
-          "lua_ls",
-          "ts_ls",
-          "gopls",
-          "docker_compose_language_service",
-          "dockerls",
-          "tailwindcss",
-        },
-      })
-    end,
-  },
+  -- {
+  --   "mason-org/mason-lspconfig.nvim",
+  --   event = { "BufReadPost", "BufNewFile" },
+  --   config = function()
+  --     require("mason-lspconfig").setup({
+  --       ensure_installed = {
+  --         "bashls",
+  --         "ansiblels",
+  --         "lua_ls",
+  --         "ts_ls",
+  --         "gopls",
+  --         "docker_compose_language_service",
+  --         "dockerls",
+  --         "tailwindcss",
+  --       },
+  --     })
+  --   end,
+  -- },
 
   -- linting stuffs
   {
