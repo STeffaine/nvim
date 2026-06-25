@@ -4,7 +4,6 @@ return {
     lazy = false,
     config = function()
       require("mason").setup()
-      local mason_mappings = require("config.mason_mappings")
 
       local function get_lsp_tool_names()
         local lsp_dir = vim.fn.stdpath("config") .. "/lsp"
@@ -30,6 +29,8 @@ return {
           vim.notify("mason-registry is not available", vim.log.levels.ERROR)
           return
         end
+
+        local mason_mappings = require("config.mason_mappings")
 
         local lspconfig_to_package = mason_mappings.get_lspconfig_to_package_map(registry)
 
