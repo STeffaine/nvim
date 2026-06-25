@@ -15,14 +15,15 @@ return {
 
         for _, file in ipairs(vim.fn.readdir(lsp_dir)) do
           if file:match("%.lua$") and file ~= "init.lua" then
-            table.insert(tools, file:gsub("%.lua$", ""))
+            local tool_name = file:gsub("%.lua$", "")
+            table.insert(tools, tool_name)
           end
         end
 
         return tools
       end
 
-      vim.api.nvim_create_user_command("MasonInstallFromLspDir", function()
+      vim.api.nvim_create_user_command("MasonInstall", function()
         local ok, registry = pcall(require, "mason-registry")
         if not ok then
           vim.notify("mason-registry is not available", vim.log.levels.ERROR)
