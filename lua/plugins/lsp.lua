@@ -4,6 +4,7 @@ return {
     lazy = false,
     config = function()
       require("mason").setup()
+      local mason_mappings = require("config.mason_mappings")
 
       local function get_lsp_tool_names()
         local lsp_dir = vim.fn.stdpath("config") .. "/lsp"
@@ -30,6 +31,8 @@ return {
           return
         end
 
+        local lspconfig_to_package = mason_mappings.get_lspconfig_to_package_map(registry)
+
         local tools = get_lsp_tool_names()
         if #tools == 0 then
           vim.notify("No tool files found in lsp directory", vim.log.levels.WARN)
@@ -41,13 +44,17 @@ return {
         local missing = {}
 
         for _, tool in ipairs(tools) do
-          if registry.has_package(tool) then
-            local pkg = registry.get_package(tool)
+          local package_name = lspconfig_to_package[tool] or tool
+
+          if registry.has_package(package_name) then
+            local pkg = registry.get_package(package_name)
+            local label = package_name == tool and tool or (tool .. " -> " .. package_name)
+
             if pkg:is_installed() then
-              table.insert(installed, tool)
+              table.insert(installed, label)
             else
               pkg:install()
-              table.insert(queued, tool)
+              table.insert(queued, label)
             end
           else
             table.insert(missing, tool)
