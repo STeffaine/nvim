@@ -4,6 +4,69 @@ return {
     lazy = false,
     config = function()
       require("mason").setup()
+
+      local function get_lsp_tool_names()
+        local lsp_dir = vim.fn.stdpath("config") .. "/lsp"
+        local tools = {}
+
+        if vim.fn.isdirectory(lsp_dir) == 0 then
+          return tools
+        end
+
+        for _, file in ipairs(vim.fn.readdir(lsp_dir)) do
+          if file:match("%.lua$") and file ~= "init.lua" then
+            table.insert(tools, file:gsub("%.lua$", ""))
+          end
+        end
+
+        return tools
+      end
+
+      vim.api.nvim_create_user_command("MasonInstallFromLspDir", function()
+        local ok, registry = pcall(require, "mason-registry")
+        if not ok then
+          vim.notify("mason-registry is not available", vim.log.levels.ERROR)
+          return
+        end
+
+        local tools = get_lsp_tool_names()
+        if #tools == 0 then
+          vim.notify("No tool files found in lsp directory", vim.log.levels.WARN)
+          return
+        end
+
+        local installed = {}
+        local queued = {}
+        local missing = {}
+
+        for _, tool in ipairs(tools) do
+          if registry.has_package(tool) then
+            local pkg = registry.get_package(tool)
+            if pkg:is_installed() then
+              table.insert(installed, tool)
+            else
+              pkg:install()
+              table.insert(queued, tool)
+            end
+          else
+            table.insert(missing, tool)
+          end
+        end
+
+        if #installed > 0 then
+          vim.notify("Already installed: " .. table.concat(installed, ", "), vim.log.levels.INFO)
+        end
+
+        if #queued > 0 then
+          vim.notify("Installing via Mason: " .. table.concat(queued, ", "), vim.log.levels.INFO)
+        end
+
+        if #missing > 0 then
+          vim.notify("Not found in Mason registry: " .. table.concat(missing, ", "), vim.log.levels.WARN)
+        end
+      end, {
+        desc = "Install Mason tools from lsp/*.lua filenames",
+      })
     end,
   },
   -- {
