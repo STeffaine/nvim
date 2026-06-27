@@ -78,24 +78,25 @@ return {
       })
     end,
   },
-  -- {
-  --   "mason-org/mason-lspconfig.nvim",
-  --   event = { "BufReadPost", "BufNewFile" },
-  --   config = function()
-  --     require("mason-lspconfig").setup({
-  --       ensure_installed = {
-  --         "bashls",
-  --         "ansiblels",
-  --         "lua_ls",
-  --         "ts_ls",
-  --         "gopls",
-  --         "docker_compose_language_service",
-  --         "dockerls",
-  --         "tailwindcss",
-  --       },
-  --     })
-  --   end,
-  -- },
+  {
+    "mason-org/mason-lspconfig.nvim",
+    dependencies = {
+      { "mason-org/mason.nvim", opts = {} },
+      "neovim/nvim-lspconfig",
+    },
+    opts = {
+        ensure_installed = {
+          "bashls",
+          "ansiblels",
+          "lua_ls",
+          "ts_ls",
+          "gopls",
+          "docker_compose_language_service",
+          "dockerls",
+          "tailwindcss",
+        }
+    },
+  },
 
   -- linting stuffs
   {
