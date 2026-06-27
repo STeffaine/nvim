@@ -1,114 +1,106 @@
 return {
   {
     "mason-org/mason.nvim",
-    event = "VeryLazy",
+    lazy = false,
     config = function()
       require("mason").setup()
-    end,
-  },
-  {
-    "mason-org/mason-lspconfig.nvim",
-    event = { "BufReadPost", "BufNewFile" },
-    config = function()
-      require("mason-lspconfig").setup({
-        ensure_installed = {
-          "bashls",
-          -- "ansiblels",
-          "lua_ls",
-          "ts_ls",
-          "gopls",
-          "docker_compose_language_service",
-          "dockerls",
-          "tailwindcss"
-        },
-      })
-    end,
-  },
-  {
-    "neovim/nvim-lspconfig",
-    event = { "BufReadPre", "BufNewFile", "BufWritePre" },
-    cmd = { "LspInfo", "LspInstall", "LspUninstall", "LspRestart" },
-    config = function()
-      -- local capabilities = require("cmp_nvim_lsp").default_capabilities()
-      local capabilities = {}
-      local lspconfig = vim.lsp.config
 
-      lspconfig('bashls', {
-        capabilities = capabilities,
-        cmd = { "bash-language-server", "start" },
-        filetypes = { "sh", "zsh" },
-      })
+      local function get_lsp_tool_names()
+        local lsp_dir = vim.fn.stdpath("config") .. "/lsp"
+        local tools = {}
 
-      -- lspconfig.gopls.setup({
-      --   capabilities = capabilities,
-      --   cmd = { "gopls" },
-      --   filetypes = { "go", "gomod", "gowork", "gotmpl" },
-      --   root_dir = lspconfig.util.root_pattern("go.work", "go.mod", ".git"),
-      --   settings = {
-      --     gofumpt = true,
-      --     completeUnimported = true,
-      --     usePlaceholders = true,
-      --     analyses = {
-      --       unusedparams = true,
-      --     },
-      --   },
-      -- })
+        if vim.fn.isdirectory(lsp_dir) == 0 then
+          return tools
+        end
 
-      lspconfig('ansiblels', {
-        on_attach = function(client, bufnr)
-          -- Check if the working directory is named "ansible"
-          local cwd = vim.fn.getcwd()
-          if not cwd:match("/ansible$") then
-            client.stop() -- Stop the LSP client if not in an "ansible" directory
+        for _, file in ipairs(vim.fn.readdir(lsp_dir)) do
+          if file:match("%.lua$") and file ~= "init.lua" then
+            local tool_name = file:gsub("%.lua$", "")
+            table.insert(tools, tool_name)
           end
-        end,
-        filetypes = { "yaml", "yml" },
-      })
+        end
 
-      lspconfig('pylsp', {
-        capabilities = capabilities,
-        cmd = { "pylsp" },
-        filetypes = { "python" },
-      })
+        return tools
+      end
 
-      lspconfig('dockerls', {
-        filetypes = { "dockerfile" },
-        capabilities = capabilities,
-      })
+      vim.api.nvim_create_user_command("MasonInstall", function()
+        local ok, registry = pcall(require, "mason-registry")
+        if not ok then
+          vim.notify("mason-registry is not available", vim.log.levels.ERROR)
+          return
+        end
 
-      lspconfig('docker_compose_language_service', {
-        filetypes = { "dockercompose" },
-        capabilities = capabilities,
-      })
+        local mason_mappings = require("config.mason_mappings")
 
-      lspconfig('tailwindcss', {
-        filetypes = { "css", "scss", "less", "html", "yaml", "markdown", "graphql" },
-        capabilities = capabilities,
-      })
+        local lspconfig_to_package = mason_mappings.get_lspconfig_to_package_map(registry)
 
-      lspconfig('lua_ls', {
-        filetypes = { "lua" },
-        capabilities = capabilities,
-      })
-      lspconfig('ts_ls', {
-        filetypes = { "typescript", "typescriptreact" },
-        capabilities = capabilities,
-      })
+        local tools = get_lsp_tool_names()
+        if #tools == 0 then
+          vim.notify("No tool files found in lsp directory", vim.log.levels.WARN)
+          return
+        end
 
-      lspconfig('vuels', {
-        capabilities = capabilities,
-        cmd = { "vls" },
-        filetypes = { "vue" },
-        root_dir = function(bufnr, on_dir)
-          on_dir(vim.fs.root(bufnr, {'package.json', 'vue.config.js' }))
-        end,
+        local installed = {}
+        local queued = {}
+        local missing = {}
+
+        for _, tool in ipairs(tools) do
+          local package_name = lspconfig_to_package[tool] or tool
+
+          if registry.has_package(package_name) then
+            local pkg = registry.get_package(package_name)
+            local label = package_name == tool and tool or (tool .. " -> " .. package_name)
+
+            if pkg:is_installed() then
+              table.insert(installed, label)
+            else
+              pkg:install()
+              table.insert(queued, label)
+            end
+          else
+            table.insert(missing, tool)
+          end
+        end
+
+        if #installed > 0 then
+          vim.notify("Already installed: " .. table.concat(installed, ", "), vim.log.levels.INFO)
+        end
+
+        if #queued > 0 then
+          vim.notify("Installing via Mason: " .. table.concat(queued, ", "), vim.log.levels.INFO)
+        end
+
+        if #missing > 0 then
+          vim.notify("Not found in Mason registry: " .. table.concat(missing, ", "), vim.log.levels.WARN)
+        end
+      end, {
+        desc = "Install Mason tools from lsp/*.lua filenames",
       })
     end,
   },
+  -- {
+  --   "mason-org/mason-lspconfig.nvim",
+  --   event = { "BufReadPost", "BufNewFile" },
+  --   config = function()
+  --     require("mason-lspconfig").setup({
+  --       ensure_installed = {
+  --         "bashls",
+  --         "ansiblels",
+  --         "lua_ls",
+  --         "ts_ls",
+  --         "gopls",
+  --         "docker_compose_language_service",
+  --         "dockerls",
+  --         "tailwindcss",
+  --       },
+  --     })
+  --   end,
+  -- },
+
   -- linting stuffs
   {
     "nvimtools/none-ls.nvim",
-    event = "VeryLazy",
+    lazy = false,
     dependencies = {
       "nvimtools/none-ls-extras.nvim",
     },
@@ -142,7 +134,6 @@ return {
             },
           }),
 
-          
           formatting.gofumpt.with({
             filetypes = {
               "go",
