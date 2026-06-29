@@ -1,0 +1,4 @@
+## Dependancies
+lazygit
+git
+
